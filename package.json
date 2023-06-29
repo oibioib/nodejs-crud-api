@@ -1,0 +1,38 @@
+{
+  "name": "nodejs-crud-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:prod": "tsc && node ./dist/index.js",
+    "start:dev": "nodemon ./src/index.ts",
+    "lint": "eslint ./src --ext .ts,.tsx --ignore-path ./.gitignore --max-warnings=0 --fix",
+    "lint:format": "prettier  --loglevel warn --write \"./**/*.(ts|tsx|scss|css|json|md)\" --ignore-path ./.gitignore",
+    "lint:check": "npm run lint && prettier --check . --ignore-path ./.gitignore"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oibioib/nodejs-crud-api.git"
+  },
+  "author": "Pavel Bodal",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/oibioib/nodejs-crud-api/issues"
+  },
+  "homepage": "https://github.com/oibioib/nodejs-crud-api#readme",
+  "devDependencies": {
+    "@types/node": "^20.3.2",
+    "@typescript-eslint/eslint-plugin": "^5.60.1",
+    "@typescript-eslint/parser": "^5.60.1",
+    "dotenv": "^16.3.1",
+    "eslint": "^8.43.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "nodemon": "^2.0.22",
+    "prettier": "^2.8.8",
+    "ts-node": "^10.9.1",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "5.0.4"
+  }
+}
