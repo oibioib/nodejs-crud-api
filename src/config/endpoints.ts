@@ -1,5 +1,5 @@
 import { getUsers, getUser, postUser, putUser, deleteUser } from '@/controllers/users';
-import { IncomingMessage, ServerResponse } from 'http';
+import { ControllerType } from '@/types';
 
 type EndpointPathType = '/api/users';
 
@@ -9,7 +9,7 @@ export type EndpointType = {
   endpoint: EndpointPathType;
   method: EndpointMethodsType;
   endpointPathParts: number;
-  controller: (request: IncomingMessage, response: ServerResponse) => void;
+  controller: ControllerType;
 };
 
 export const appEndpoints: EndpointType[] = [

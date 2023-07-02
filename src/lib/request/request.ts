@@ -1,11 +1,12 @@
-import { IncomingMessage, ServerResponse } from 'http';
-import { EndpointType } from '@/config';
+import { IncomingMessage } from 'http';
+import { EndpointType } from '@/config/endpoints';
+import { ControllerType } from '@/types';
 
 type GetEndpointControllerType = (
   requestPathname: string,
   requestMethod: string | undefined,
   endpoints: EndpointType[]
-) => ((request: IncomingMessage, response: ServerResponse) => void) | null;
+) => ControllerType | null;
 
 export const getRequestData = (request: IncomingMessage) => {
   const {

@@ -1,7 +1,7 @@
 import { getRequestData } from '@/lib/request';
-import { IncomingMessage, ServerResponse } from 'http';
+import { ControllerType } from '@/types';
 
-const getUser = (request: IncomingMessage, response: ServerResponse) => {
+const getUser: ControllerType = (request, response, db) => {
   console.log('contrller getuser data');
   const { method, pathname } = getRequestData(request);
   const responseData = {

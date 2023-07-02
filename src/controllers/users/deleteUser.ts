@@ -1,7 +1,7 @@
 import { getRequestData } from '@/lib/request';
-import { IncomingMessage, ServerResponse } from 'http';
+import { ControllerType } from '@/types';
 
-const deleteUser = (request: IncomingMessage, response: ServerResponse) => {
+const deleteUser: ControllerType = (request, response, db) => {
   console.log('contrller deleteuser data');
   const { method, pathname } = getRequestData(request);
   const responseData = {
