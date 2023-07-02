@@ -3,7 +3,7 @@
     "module": "CommonJS",
     "target": "ES2020",
     "moduleResolution": "node",
-    "outDir": "dist",
+    "outDir": "./dist",
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "removeComments": true,
@@ -14,14 +14,10 @@
     "strictPropertyInitialization": true,
     "strictFunctionTypes": true,
     "noImplicitThis": true,
-    "noEmit": true,
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
     }
   },
-  "include": ["src/**/*.ts"],
-  "ts-node": {
-    "require": ["tsconfig-paths/register"]
-  }
+  "include": ["./src/**/*"]
 }

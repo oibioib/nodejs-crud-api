@@ -1,11 +1,6 @@
 import http from 'http';
 import { PORT } from '@/config';
+import { printStartMessage, requestListener } from '@/lib/server';
 
-const server = http.createServer((_request, response) => {
-  response.write('Init task!');
-  response.end();
-});
-
-server.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+const server = http.createServer(requestListener);
+server.listen(PORT, () => printStartMessage(+PORT));
