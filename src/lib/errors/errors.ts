@@ -1,5 +1,7 @@
 import { ServerResponse } from 'http';
 
+export class RequestBodyError extends Error {}
+
 export const sendError = (
   response: ServerResponse,
   { code, message }: { code: number; message: string }

@@ -1,1 +1,1 @@
-export { sendError } from './errors';
+export { sendError, RequestBodyError } from './errors';
