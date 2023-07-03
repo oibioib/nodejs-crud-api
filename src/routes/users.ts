@@ -1,18 +1,7 @@
 import { getUsers, getUser, postUser, putUser, deleteUser } from '@/controllers/users';
-import { ControllerType } from '@/types';
+import { RouteType } from '@/routes';
 
-type EndpointPathType = '/api/users';
-
-type EndpointMethodsType = 'GET' | 'POST' | 'PUT' | 'DELETE';
-
-export type EndpointType = {
-  endpoint: EndpointPathType;
-  method: EndpointMethodsType;
-  endpointPathParts: number;
-  controller: ControllerType;
-};
-
-export const appEndpoints: EndpointType[] = [
+export const usersRoutes: RouteType[] = [
   {
     endpoint: '/api/users',
     method: 'GET',
