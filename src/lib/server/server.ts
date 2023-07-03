@@ -1,4 +1,4 @@
-import { IncomingMessage, ServerResponse } from 'http';
+import http, { IncomingMessage, ServerResponse } from 'http';
 import { DB } from '@/lib/db';
 import { logRequest } from '@/lib/request-logger';
 import { printColorMessage } from '@/lib/colors';
@@ -6,6 +6,11 @@ import { getEndpointController, getRequestData } from '@/lib/request';
 import { sendError } from '@/lib/errors';
 import { ERRORS } from '@/config/errors';
 import routes from '@/routes';
+
+export const createServer = (db: DB) =>
+  http.createServer((request: IncomingMessage, response: ServerResponse) =>
+    requestListener(request, response, db)
+  );
 
 export const printStartMessage = (PORT: number) => {
   printColorMessage({ color: 'yellow', message: `Server is running on port ${PORT}` });

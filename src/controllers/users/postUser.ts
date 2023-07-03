@@ -19,7 +19,7 @@ const postUser: ControllerType = async (request, response, db) => {
       db.addUser(newUser);
 
       response.setHeader('Content-Type', 'application/json');
-      response.writeHead(200);
+      response.writeHead(201);
       response.end(JSON.stringify(newUser, null, 2));
     } else throw new RequestBodyError();
   } catch (error) {

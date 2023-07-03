@@ -1,1 +1,1 @@
-export { requestListener, printStartMessage } from './server';
+export { createServer, requestListener, printStartMessage } from './server';

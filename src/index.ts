@@ -1,11 +1,7 @@
-import http, { IncomingMessage, ServerResponse } from 'http';
 import { PORT } from '@/config/server';
-import { printStartMessage, requestListener } from '@/lib/server';
+import { createServer, printStartMessage } from '@/lib/server';
 import { DB } from '@/lib/db';
 
 const db = new DB();
 
-const server = http.createServer((request: IncomingMessage, response: ServerResponse) =>
-  requestListener(request, response, db)
-);
-server.listen(PORT, () => printStartMessage(+PORT));
+createServer(db).listen(PORT, () => printStartMessage(+PORT));
