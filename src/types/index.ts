@@ -1,1 +1,8 @@
-export type { ControllerType } from './types';
+export type {
+  ControllerType,
+  UserType,
+  UserIdType,
+  UserNameType,
+  UserAgeType,
+  UserHobbyType,
+} from './types';
