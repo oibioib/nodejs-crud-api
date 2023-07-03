@@ -1,1 +1,1 @@
-export { getEndpointController, getRequestData } from './request';
+export { getEndpointController, getRequestData, verifyUserBody, getRequestBody } from './request';

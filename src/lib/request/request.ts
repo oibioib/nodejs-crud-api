@@ -1,11 +1,12 @@
 import { IncomingMessage } from 'http';
-import { EndpointType } from '@/config/endpoints';
 import { ControllerType } from '@/types';
+import { RequestBodyError } from '../errors';
+import { RouteType } from '@/routes';
 
 type GetEndpointControllerType = (
   requestPathname: string,
   requestMethod: string | undefined,
-  endpoints: EndpointType[]
+  endpoints: RouteType[]
 ) => ControllerType | null;
 
 export const getRequestData = (request: IncomingMessage) => {
@@ -50,4 +51,33 @@ export const getEndpointController: GetEndpointControllerType = (
   }
 
   return null;
+};
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const getRequestBody: (request: IncomingMessage) => Promise<any> = async (request) => {
+  try {
+    const requestData: Buffer[] = [];
+    for await (const chunk of request) requestData.push(chunk);
+    return JSON.parse(Buffer.concat(requestData).toString());
+  } catch {
+    new RequestBodyError();
+  }
+};
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const verifyUserBody = (requestBody: any) => {
+  if (!requestBody) return null;
+
+  if (!requestBody.username) return null;
+  if (typeof requestBody.username !== 'string') return null;
+
+  if (!requestBody.age) return null;
+  if (typeof requestBody.age !== 'number') return null;
+
+  if (!requestBody.hobbies) return null;
+  if (!Array.isArray(requestBody.hobbies)) return null;
+  if (requestBody.hobbies.some((hobby: unknown) => typeof hobby !== 'string')) return null;
+
+  const { username, age, hobbies } = requestBody;
+  return { username, age, hobbies };
 };
