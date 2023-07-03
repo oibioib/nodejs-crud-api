@@ -1,7 +1,7 @@
 import http, { IncomingMessage, ServerResponse } from 'http';
 import { PORT } from '@/config/server';
 import { printStartMessage, requestListener } from '@/lib/server';
-import { DB } from '@/db';
+import { DB } from '@/lib/db';
 
 const db = new DB();
 
