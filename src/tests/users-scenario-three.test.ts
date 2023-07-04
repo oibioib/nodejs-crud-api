@@ -2,8 +2,9 @@ import supertest from 'supertest';
 
 import { createServer } from '@/lib/server';
 import { createSharedDBServer } from '@/lib/db';
+import { DB_PORT } from '@/config/server';
 
-const sharedDB = createSharedDBServer().listen(3000);
+const sharedDB = createSharedDBServer().listen(DB_PORT);
 const server = createServer();
 
 const newUserWithoutUsername = {
