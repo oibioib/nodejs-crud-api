@@ -20,6 +20,8 @@ Simple CRUD API implemented using in-memory database underneath.
 
 `npm run start:dev`
 
+`npm run start:multi`
+
 `npm run  test`
 
 ## Technical requirements
