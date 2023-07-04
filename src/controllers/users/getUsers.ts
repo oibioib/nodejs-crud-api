@@ -1,10 +1,11 @@
 import { ERRORS } from '@/config/errors';
 import { sendError } from '@/lib/errors';
 import { ControllerType } from '@/types';
+import { getDBUsers } from './getDBUsers';
 
-const getUsers: ControllerType = (_request, response, db) => {
+const getUsers: ControllerType = async (_request, response) => {
   try {
-    const users = db.getUsers();
+    const users = await getDBUsers();
 
     response.setHeader('Content-Type', 'application/json');
     response.writeHead(200);

@@ -3,8 +3,10 @@ import { RequestBodyError, sendError } from '@/lib/errors';
 import { isIdValid } from '@/lib/id';
 import { getRequestData, getRequestBody, verifyUserBody } from '@/lib/request';
 import { ControllerType } from '@/types';
+import { getDBUsers } from './getDBUsers';
+import { setDBUsers } from './setDBUsers';
 
-const putUser: ControllerType = async (request, response, db) => {
+const putUser: ControllerType = async (request, response) => {
   try {
     const { pathname } = getRequestData(request);
     const [requestUserId] = pathname.split('/').slice(-1);
@@ -18,12 +20,18 @@ const putUser: ControllerType = async (request, response, db) => {
     const verifiedUserData = verifyUserBody(requestBody);
 
     if (verifiedUserData) {
-      const updatedUser = db.updateUser({ id: requestUserId, ...verifiedUserData });
+      const users = await getDBUsers();
+      const user = users.find(({ id }) => id === requestUserId);
 
-      if (!updatedUser) {
+      if (!user) {
         sendError(response, ERRORS.USER_NOT_EXIST);
         return;
       }
+
+      const usersNoUpdate = users.filter(({ id }) => id !== requestUserId);
+      const updatedUser = { id: requestUserId, ...verifiedUserData };
+
+      await setDBUsers([...usersNoUpdate, updatedUser]);
 
       response.setHeader('Content-Type', 'application/json');
       response.writeHead(200);

@@ -1,11 +1,12 @@
 import supertest from 'supertest';
 
-import { DB } from '@/lib/db';
 import { createServer } from '@/lib/server';
 import { UserIdType } from '@/types';
+import { createSharedDBServer } from '@/lib/db';
+import { DB_PORT } from '@/config/server';
 
-const db = new DB();
-const server = createServer(db);
+const sharedDB = createSharedDBServer().listen(DB_PORT);
+const server = createServer();
 
 const newUser = {
   username: 'Pavel',
@@ -16,6 +17,10 @@ const newUser = {
 const newUserWithNewAge = { ...newUser, age: 30 };
 
 describe('Users scenario ONE (test basic operations)', () => {
+  afterAll((done) => {
+    sharedDB.close(done);
+  });
+
   let userId: UserIdType;
 
   test('Should get empty users array for first api call', async () => {

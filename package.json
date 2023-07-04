@@ -6,11 +6,12 @@
   "scripts": {
     "start:prod": "npm run build && node ./dist/index.js",
     "start:dev": "tsnd -r tsconfig-paths/register ./src/index.ts",
+    "start:multi": "cross-env CLUSTER=multi tsnd -r tsconfig-paths/register ./src/index.ts",
     "lint": "eslint ./src --ext .ts,.tsx --ignore-path ./.gitignore --max-warnings=0 --fix",
     "lint:format": "prettier  --loglevel warn --write \"./**/*.(ts|tsx|scss|css|json|md)\" --ignore-path ./.gitignore",
     "lint:check": "npm run lint && prettier --check . --ignore-path ./.gitignore",
     "build": "webpack",
-    "test": "jest --silent"
+    "test": "jest --silent --runInBand"
   },
   "repository": {
     "type": "git",
@@ -33,6 +34,7 @@
     "@types/uuid": "^9.0.2",
     "@typescript-eslint/eslint-plugin": "^5.60.1",
     "@typescript-eslint/parser": "^5.60.1",
+    "cross-env": "^7.0.3",
     "eslint": "^8.43.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-prettier": "^4.2.1",

@@ -1,10 +1,10 @@
 import supertest from 'supertest';
 
-import { DB } from '@/lib/db';
 import { createServer } from '@/lib/server';
+import { createSharedDBServer } from '@/lib/db';
 
-const db = new DB();
-const server = createServer(db);
+const sharedDB = createSharedDBServer().listen(3000);
+const server = createServer();
 
 const newUserWithoutUsername = {
   age: 38,
@@ -34,6 +34,10 @@ const newUserWithBadHobbiesType = {
 };
 
 describe('Users scenario THREE (test creating user with wrong params)', () => {
+  afterAll((done) => {
+    sharedDB.close(done);
+  });
+
   test("Shouldn't create new user without username", async () => {
     const response = await supertest(server)
       .post('/api/users')

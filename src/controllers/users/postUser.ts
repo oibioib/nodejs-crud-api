@@ -3,20 +3,23 @@ import { RequestBodyError, sendError } from '@/lib/errors';
 import { generateId } from '@/lib/id';
 import { getRequestBody, verifyUserBody } from '@/lib/request';
 import { ControllerType } from '@/types';
+import { getDBUsers } from './getDBUsers';
+import { setDBUsers } from './setDBUsers';
 
-const postUser: ControllerType = async (request, response, db) => {
+const postUser: ControllerType = async (request, response) => {
   try {
-    // const requestBody = await parseRequestBody(request);
     const requestBody = await getRequestBody(request);
     const verifiedUserData = verifyUserBody(requestBody);
 
     if (verifiedUserData) {
-      const alreadyExistUsersIds = db.getUserIds();
+      const users = await getDBUsers();
+
+      const alreadyExistUsersIds = users.map(({ id }) => id);
       const id = generateId(alreadyExistUsersIds);
 
       const newUser = { id, ...verifiedUserData };
 
-      db.addUser(newUser);
+      await setDBUsers([...users, newUser]);
 
       response.setHeader('Content-Type', 'application/json');
       response.writeHead(201);

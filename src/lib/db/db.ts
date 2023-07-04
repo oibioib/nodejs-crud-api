@@ -16,6 +16,10 @@ class DB {
     return this.users;
   }
 
+  setUsers(users: UserType[]) {
+    this.users = users;
+  }
+
   getUser(userId: UserIdType) {
     return this.users.find(({ id }) => id === userId);
   }
